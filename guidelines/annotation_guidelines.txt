@@ -1,0 +1,89 @@
+Arabic LLM Safety Annotation Guidelines
+=====================================
+
+Purpose:
+These guidelines define how to label Arabic text samples for LLM safety training.
+The goal is consistent, human-like judgment of harmful and non-harmful content.
+
+Language Scope:
+- Modern Standard Arabic (MSA)
+- Arabic dialects (especially Egyptian)
+- Mixed Arabic is allowed
+
+Each sentence must receive ONE primary label.
+
+-------------------------------------
+LABEL DEFINITIONS
+-------------------------------------
+
+1. SAFE
+Definition:
+Content that is neutral, informational, polite, or everyday speech.
+No harassment, hate, sexual, or violent meaning.
+
+Examples:
+- الجو حر النهارده
+- المباراة كانت ممتعة
+- من فضلك ابعتلي الملف
+
+-------------------------------------
+
+2. HARASSMENT / ABUSE
+Definition:
+Direct insults, humiliation, threats, or aggressive language toward a person or group.
+Includes profanity when used abusively.
+
+Examples:
+- إنت غبي ومش فاهم حاجة
+- كلامك كله هبل
+- لو شفتك تاني هضربك
+
+-------------------------------------
+
+3. HATE SPEECH
+Definition:
+Attacks or dehumanization targeting a protected group based on religion, nationality, gender, ethnicity, or similar identity.
+Includes calls for exclusion, harm, or inferiority.
+
+Examples:
+- دول مش بشر
+- كلهم خونة ولازم يختفوا
+- الستات دول أقل من الرجالة
+
+-------------------------------------
+
+4. SEXUAL CONTENT
+Definition:
+Sexual language, explicit references, or sexually suggestive expressions.
+Does NOT include minors.
+
+Examples:
+- كلام إباحي صريح
+- أوصاف جنسية مباشرة
+- تعليقات جنسية غير مرغوبة
+
+-------------------------------------
+
+5. VIOLENCE / EXTREMISM
+Definition:
+Threats of physical harm, glorification of violence, or extremist ideology.
+Includes calls to kill, burn, attack, or destroy.
+
+Examples:
+- لازم نقتلهم كلهم
+- يستاهل يتحرق
+- الجهاد بمعنى القتل العشوائي
+
+-------------------------------------
+ANNOTATION RULES
+-------------------------------------
+
+- Label based on meaning, not tone
+- Sarcasm is labeled by intended harm
+- Dialectal Arabic is treated the same as MSA
+- If multiple harms exist, choose the MOST SEVERE label
+- When unsure, add a note (later stage)
+
+-------------------------------------
+END OF DOCUMENT
+-------------------------------------
