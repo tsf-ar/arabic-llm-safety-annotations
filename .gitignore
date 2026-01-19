@@ -1,0 +1,11 @@
+# Environment & secrets
+.env
+venv/
+
+# Data files (keep private)
+data/*.csv
+
+# OS / editor junk
+__pycache__/
+*.pyc
+.DS_Store
