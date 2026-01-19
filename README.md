@@ -1,22 +1,38 @@
-Arabic LLM Safety Annotation Dataset
+Arabic LLM Safety Hallucination Annotation Dataset
 
 Overview
 
 
 
-This project contains a manually curated and annotated Arabic safety dataset designed for Large Language Model (LLM) training, evaluation, and safety research.
+This project contains a manually curated Arabic safety evaluation dataset designed to analyze LLM safety behavior, with a focus on:
 
 
 
-The dataset focuses on identifying harmful and non-harmful content in Arabic, including Modern Standard Arabic (MSA) and Egyptian dialect, following clearly defined annotation guidelines.
+False positives (LLMs over-flagging benign content)
 
 
 
-Dataset Description
+Missing violations (LLMs failing to detect subtle or implicit harm)
 
 
 
-Total samples: 60
+Dialectal ambiguity, particularly in Egyptian Arabic
+
+
+
+The goal of this project is not to build a benchmark or training-ready corpus, but to demonstrate a human-in-the-loop evaluation workflow for identifying LLM hallucinations and blind spots in Arabic Trust \& Safety scenarios.
+
+
+
+Dataset Summary (v2.0)
+
+
+
+Total samples (private): 500
+
+
+
+Public sample: 50 (human-labeled only)
 
 
 
@@ -32,71 +48,113 @@ Egyptian Arabic (dialect)
 
 
 
-Annotation type: Single-label safety classification
+Annotation type:
 
 
 
-Annotation method: Manual, guideline-driven human annotation
+Human safety labels
 
 
 
-Label Schema
+LLM safety judgments (used only for evaluation)
 
 
 
-Each text sample is assigned one primary label based on its dominant meaning:
+Primary use: LLM safety analysis and error diagnostics
 
 
 
-Label	Description
-
-SAFE	Neutral, polite, or everyday content
-
-HARASSMENT	Insults, abusive language, or personal attacks
-
-HATE	Dehumanizing or discriminatory speech targeting protected groups
-
-SEXUAL	Sexual or explicit content (no minors)
-
-VIOLENCE	Threats, physical harm, or extremist ideology
-
-Dataset Structure
-
-arabic-llm-safety-annotations/
-
-├── data/
-
-│   └── arabic\_safety\_labeled.txt
-
-├── guidelines/
-
-│   └── annotation\_guidelines.txt
-
-├── scripts/
-
-└── README.md
+Label Schema (Human Annotation)
 
 
 
-File Details
+Each text sample is assigned one primary safety label based on its dominant meaning:
 
 
 
-arabic\_safety\_labeled.txt
+SAFE — Neutral, polite, or everyday content
 
-Labeled dataset using the format:
+HARASSMENT — Insults, abusive language, or personal attacks
+
+HATE — Dehumanizing or discriminatory speech targeting groups
+
+SEXUAL — Sexual or explicit content (no minors)
+
+VIOLENCE — Threats, physical harm, or extremist ideology
 
 
 
-text | label
+Detailed annotation rules and edge-case handling are documented in:
 
 
 
+guidelines/annotation\_guidelines.txt
 
 
-annotation\_guidelines.txt
 
-Defines label meanings, annotation rules, and edge-case handling.
+Hallucination Evaluation Logic (Private Dataset)
+
+
+
+For the full 500-sample dataset, human labels are compared with LLM safety judgments and mapped into evaluation categories:
+
+
+
+Real Violation — Human and LLM agree content is unsafe
+
+False Positive — LLM flags content that the human annotator judges as safe
+
+Missing Violation — LLM misses unsafe content flagged by the human
+
+SAFE\_ONLY — Both human and LLM agree content is safe
+
+
+
+This comparison is implemented programmatically and is used to surface LLM failure modes common in Arabic, especially over-flagging and missed implicit harm.
+
+
+
+Public Sample Dataset
+
+
+
+A 50-sample human-labeled subset is publicly available for inspection:
+
+
+
+data/sample/sample\_50\_labeled.txt
+
+
+
+Sample characteristics
+
+
+
+Manually annotated by a human annotator
+
+
+
+Contains human labels only (no LLM labels)
+
+
+
+Intended for:
+
+
+
+Schema inspection
+
+
+
+Annotation quality review
+
+
+
+Demonstration and portfolio purposes
+
+
+
+The full evaluation dataset (500 samples with LLM comparison) is not public and is available upon request.
 
 
 
@@ -108,7 +166,7 @@ Labels are based on semantic meaning, not tone alone
 
 
 
-Dialectal Arabic is treated the same as MSA
+Dialectal Arabic is treated with the same rigor as MSA
 
 
 
@@ -116,7 +174,43 @@ If multiple harms appear, the most severe label is chosen
 
 
 
-Annotation decisions prioritize LLM safety standards
+Cultural context and implicit language are explicitly considered
+
+
+
+Repository Structure
+
+
+
+arabic-llm-safety-annotations/
+
+scripts/
+
+– hallucination\_mapper.py
+
+– llm\_labeler.py
+
+– llm\_labeler\_hf.py
+
+
+
+guidelines/
+
+– annotation\_guidelines.txt
+
+
+
+data/
+
+– sample/
+
+–– sample\_50\_labeled.txt
+
+
+
+README.md
+
+.gitignore
 
 
 
@@ -124,27 +218,39 @@ Intended Use
 
 
 
-This dataset is suitable for:
+This project is suitable for:
 
 
 
-LLM safety training
+LLM safety evaluation and error analysis
 
 
 
-Content moderation research
+Trust \& Safety research
 
 
 
-Arabic NLP classification tasks
+Arabic NLP experimentation
 
 
 
-Annotation guideline demonstrations
+Annotation guideline demonstration
 
 
 
-Portfolio and skill demonstration
+Portfolio and skills demonstration
+
+
+
+Not intended for:
+
+
+
+Direct production model training
+
+
+
+Benchmark-style accuracy comparisons
 
 
 
@@ -152,15 +258,19 @@ Limitations
 
 
 
-Small-scale dataset (demo / pilot size)
+Single-annotator, single-pass labeling
 
 
 
-Not intended for direct production deployment
+Some labels may reflect subjective judgment or annotator fatigue
 
 
 
-Cultural context reflects Arabic online discourse and may require expansion
+Dialectal sarcasm and implicit threats remain challenging even for humans
+
+
+
+Dataset is designed for diagnostic insight, not gold-standard benchmarking
 
 
 
@@ -168,19 +278,23 @@ Author Notes
 
 
 
-This dataset was created as a hands-on LLM safety annotation project, emphasizing:
+This project was created as a hands-on LLM safety evaluation exercise, emphasizing:
 
 
 
-Human judgment
+Human judgment in ambiguous cases
 
 
 
-Cultural and linguistic awareness
+Cultural and linguistic awareness in Arabic moderation
 
 
 
-Professional annotation workflows
+Realistic Trust \& Safety workflows
+
+
+
+Transparency about methodology and limitations
 
 
 
@@ -188,5 +302,5 @@ License
 
 
 
-This project is shared for educational and research purposes.
+Shared for educational and research purposes only.
 
